@@ -1,0 +1,228 @@
+/* ===================================
+   ASTROBLAST 2D — Estilos principales
+   Graficación ISC · ITP 2026
+=================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+:root {
+  --space-dark:   #020818;
+  --space-mid:    #0a1628;
+  --space-blue:   #0d2137;
+  --neon-cyan:    #00f5ff;
+  --neon-purple:  #b537f2;
+  --neon-gold:    #ffd700;
+  --text-bright:  #e8f4fd;
+  --text-dim:     #7ba3c0;
+  --panel-bg:     rgba(10, 22, 40, 0.85);
+  --panel-border: rgba(0, 245, 255, 0.2);
+  --glow-cyan:    0 0 10px rgba(0,245,255,0.5);
+}
+
+/* ── BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--space-dark);
+  color: var(--text-bright);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(13,33,55,0.8) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(181,55,242,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(0,245,255,0.05) 0%, transparent 50%);
+}
+
+/* ── CURSOR PERSONALIZADO ── */
+body { cursor: url('assets/cursor.svg') 16 16, crosshair; }
+canvas { cursor: url('assets/cursor.svg') 16 16, crosshair !important; }
+
+/* ── HEADER ── */
+.game-header {
+  background: linear-gradient(135deg, var(--space-mid) 0%, #0d1f3c 50%, #0a1225 100%);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 245, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 80px,
+    rgba(0,245,255,0.03) 80px,
+    rgba(0,245,255,0.03) 81px
+  );
+  pointer-events: none;
+}
+
+.header-img {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 12px var(--neon-cyan));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.game-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 20px rgba(0,245,255,0.8), 0 0 40px rgba(0,245,255,0.4);
+  letter-spacing: 0.15em;
+}
+
+.game-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ── CANVAS ── */
+.canvas-wrapper {
+  position: relative;
+  border: 2px solid rgba(0, 245, 255, 0.35);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(0,245,255,0.1),
+    0 0 30px rgba(0,245,255,0.15),
+    inset 0 0 60px rgba(0,0,20,0.5);
+  overflow: hidden;
+}
+
+#gameCanvas {
+  display: block;
+  background: transparent;
+}
+
+/* ── PANELS ── */
+.panel-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 14px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.panel-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  color: var(--neon-cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+/* ── STATS ── */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.stat-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--neon-gold);
+  text-shadow: 0 0 8px rgba(255,215,0,0.5);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ── INSTRUCCIONES ── */
+.instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.instructions-list li { padding: 2px 0; }
+
+/* ── BOTÓN AUDIO ── */
+.btn-audio {
+  display: block;
+  width: 100%;
+  padding: 7px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--neon-cyan);
+  background: rgba(0,245,255,0.08);
+  border: 1px solid rgba(0,245,255,0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-audio:hover {
+  background: rgba(0,245,255,0.18);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ── LEYENDA ── */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  padding: 3px 0;
+}
+
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.panel-hr { border-color: var(--panel-border); margin: 10px 0; }
+
+.legend-note {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ── FOOTER ── */
+.game-footer {
+  background: linear-gradient(135deg, var(--space-mid), #080f1e);
+  border-top: 2px solid rgba(0,245,255,0.2);
+  margin-top: 8px;
+}
+
+.footer-text   { font-size: 0.85rem; color: var(--text-dim); }
+.footer-credits { font-size: 0.9rem; color: var(--text-bright); }
+.footer-year   { font-size: 0.75rem; color: rgba(123,163,192,0.5); margin-top: 4px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 992px) {
+  .panel-card { margin-bottom: 8px; }
+}
